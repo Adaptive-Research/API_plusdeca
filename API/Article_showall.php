@@ -8,7 +8,6 @@ class Article_API
 {
   public $id ;
   public $iscurrent ;
-  public $isValidated;
   public $isPublished ;
   public $idUtilisateur ;
   public $idAncestor ;
@@ -81,7 +80,6 @@ if ( isset($_POST['Submit']) )
             $objK = new Article_API ;
             $objK->id = $row['id'] ;
             $objK->iscurrent = $row['iscurrent'] ;
-            $objK->isValidated = $row['isvalidated'] ;
             $objK->isPublished = $row['ispublished'] ;
 
             $objK->idUtilisateur = $row['idutilisateur'] ;

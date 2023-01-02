@@ -52,9 +52,8 @@ if ( isset($_POST['Submit']) )
           $row = pg_fetch_assoc($result2) ;
           $NumVersion = $row['numversion'] + 1 ;
 
-          $Article_Category = 1 ;
+          $Article_Category = "" ;
           if ($_POST['Article_Category'] != "")
-            if ( is_numeric($_POST['Article_Category']) == TRUE)
               $Article_Category = $_POST['Article_Category'] ;
 
           $ATitle =  str_replace("'","''",$_POST['Article_Title']) ;   

@@ -608,17 +608,6 @@ Route::add('/API/Show-CategoriesArticles',function()
 },'post');
 
 
-Route::add('/API/Validate-Article',function()
-{
-    global  $baseAPI ;
-    require $baseAPI.'/Article_validate.php' ;
-},'post');
-
-Route::add('/API/Invalidate-Article',function()
-{
-    global  $baseAPI ;
-    require $baseAPI.'/Article_invalidate.php' ;
-},'post');
 
 
 

@@ -43,7 +43,7 @@ if ( isset($_POST['Submit']) )
       {
         $sw = $_POST['SiteWeb'] ;
         $de = $_POST['Description'] ;
-        $de = str_replace("'","'",$de) ;
+        $de = str_replace("'","''",$de) ;
 
 
         $sql = "update entreprise_activite set identreprise = '".$_POST['idEntreprise']."', typeactivite = '".$_POST['TypeActivite']."', " ;

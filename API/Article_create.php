@@ -43,9 +43,8 @@ if ( isset($_POST['Submit']) )
       $num_rows = pg_num_rows($result);
       if ( $num_rows > 0 )
       {
-        $Article_Category = 1 ;
+        $Article_Category = "" ;
         if ($_POST['Article_Category'] != "")
-          if ( is_numeric($_POST['Article_Category']) == TRUE)
             $Article_Category = $_POST['Article_Category'] ;
         
         $ATitle =  str_replace("'","''",$_POST['Article_Title']) ;   

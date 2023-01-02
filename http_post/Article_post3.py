@@ -1,10 +1,10 @@
 import requests
 
-url = 'http://API.test:8011/API/Show-BusinessCards'
+url = 'https://test.adaptive-api.fr/API/Show-Articles'
 
 
 
-myobj = [ ('Submit' , '1'), ('debug' , '1'),  ('token', '1;6adb778327adece320bc12c8a982b6681eafe1fa1f804931843cb0bb7f22')  ]
+myobj = [ ('Submit' , '1'), ('debug' , '1'),  ('token', ' 3;82944edc57291fb4623201dfa83b2707484f9c99922123979ae57df15937')  ]
 
 x = requests.post(url, data = myobj)
 print(x.text)

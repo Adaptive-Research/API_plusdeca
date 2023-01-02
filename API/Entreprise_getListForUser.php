@@ -7,7 +7,9 @@ class Entreprise_Utilisateur_API
   public $id ;
   public $iscurrent ;
   public $idUtilisateur ;
+  public $Fondateur ;
   public $Fonction ;
+
 
   public $idEntreprise ;
   public $Siret ;
@@ -75,6 +77,7 @@ if ( isset($_POST['Submit']) )
             $objK->id = $row['id'] ;
             $objK->iscurrent = $row['iscurrent'] ;
             $objK->idUtilisateur = $row['idutilisateur'] ;
+            $objK->Fondateur = $row['fondateur'] ;
             $objK->Fonction = $row['fonction'] ;
 
             $objK->idEntreprise = $row['identreprise'] ;
