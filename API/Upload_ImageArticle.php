@@ -67,10 +67,20 @@ if ( isset($_POST['Submit']) )
         if($check !== false) {
 
           $uid = str_replace(".","-",uniqid('',true)) ;
-          $target_file = $target_dir."img_".$uid.".". $imageFileType ;
+          $fichier =  "img_".$uid.".". $imageFileType ;
+          $target_file = $target_dir.$fichier;
           echo $_FILES['data']['tmp_name']." --> ".$target_file."\n" ;
-          if (move_uploaded_file($_FILES['data']['tmp_name'],$target_file))
-            echo "img_".$uid.".". $imageFileType ;
+          if (move_uploaded_file($_FILES['data']['tmp_name'],$target_file)) {
+           
+            $sql = "insert into images ( fichier ) values ('".$target_file."') returning id" ;
+            $result = pg_query($conn, $sql);
+            if($result !== false) {
+                $row = pg_fetch_row($result) ;
+                echo $row[0] ;
+            }
+          }
+          else
+            echo "ERROR: move_uploaded_file did not work" ;
               
         } 
         else 

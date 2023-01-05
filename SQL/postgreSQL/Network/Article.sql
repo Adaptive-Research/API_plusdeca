@@ -28,11 +28,11 @@ create table articles (
   lastversion integer default 1,
 
   article_rubrique int default 3, 
-  article_category varchar(200) default null,
+  article_tags varchar(200) default null,
   article_title varchar(200) not null,
   article_text text default null,
   article_htmltext text default null,
-  article_image varchar(200)  default null,
+  article_image BIGINT  default 0,
 
   date_save timestamp default current_timestamp
 ) ;

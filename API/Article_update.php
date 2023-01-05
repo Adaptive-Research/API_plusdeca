@@ -52,18 +52,18 @@ if ( isset($_POST['Submit']) )
           $row = pg_fetch_assoc($result2) ;
           $NumVersion = $row['numversion'] + 1 ;
 
-          $Article_Category = "" ;
-          if ($_POST['Article_Category'] != "")
-              $Article_Category = $_POST['Article_Category'] ;
+          $Article_Tags = "" ;
+          if ($_POST['Article_Tags'] != "")
+              $Article_Tags = str_replace("'","''",$_POST['Article_Tags']) ;
 
           $ATitle =  str_replace("'","''",$_POST['Article_Title']) ;   
           $ATexte =  str_replace("'","''",$_POST['Article_Text']) ;
           $AHtml =  str_replace("'","''",$_POST['Article_Html']) ;
       
 
-          $sql4 = "insert into articles ( idutilisateur, idancestor, numversion,article_category, article_title, article_text, article_htmltext, article_image) values ('".$idUser."','" ;
+          $sql4 = "insert into articles ( idutilisateur, idancestor, numversion,article_tags, article_title, article_text, article_htmltext, article_image) values ('".$idUser."','" ;
           $sql4 = $sql4.$_POST['idAncestor']."','".$NumVersion."','" ;
-          $sql4 = $sql4.$Article_Category."','".$ATitle."','".$ATexte."','".$AHtml."','" ;
+          $sql4 = $sql4.$Article_Tags."','".$ATitle."','".$ATexte."','".$AHtml."','" ;
           $sql4 = $sql4.$_POST['Article_Image']."')" ;
 
 

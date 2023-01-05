@@ -43,9 +43,9 @@ if ( isset($_POST['Submit']) )
       $num_rows = pg_num_rows($result);
       if ( $num_rows > 0 )
       {
-        $Article_Category = "" ;
-        if ($_POST['Article_Category'] != "")
-            $Article_Category = $_POST['Article_Category'] ;
+        $Article_Tags = "" ;
+        if ($_POST['Article_Tags'] != "")
+            $Article_Tags = str_replace("'","''",$_POST['Article_Tags']) ;
         
         $ATitle =  str_replace("'","''",$_POST['Article_Title']) ;   
         $ATexte =  str_replace("'","''",$_POST['Article_Text']) ;
@@ -53,8 +53,8 @@ if ( isset($_POST['Submit']) )
 
 
 
-        $sql = "insert into articles ( idutilisateur, article_category, article_title, article_text, article_htmltext, article_image) values ('".$idUser."','" ;
-        $sql = $sql.$Article_Category."','".$ATitle."','".$ATexte."','".$AHtml."','" ;
+        $sql = "insert into articles ( idutilisateur, article_tags, article_title, article_text, article_htmltext, article_image) values ('".$idUser."','" ;
+        $sql = $sql.$Article_Tags."','".$ATitle."','".$ATexte."','".$AHtml."','" ;
         $sql = $sql.$_POST['Article_Image']."')" ;
 
         if (isset($_POST['debug']))

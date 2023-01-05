@@ -12,7 +12,7 @@ class Article_API
   public $idUtilisateur ;
   public $idAncestor ;
   public $NumVersion ;
-  public $Article_Category ;
+  public $Article_Tags ;
   public $Article_Title ;
   public $Article_Text ;
   public $Article_Html ;  
@@ -64,7 +64,7 @@ if ( isset($_POST['Submit']) )
       $num_rows = pg_num_rows($result);
       if ( $num_rows > 0 )
       {
-        $sql = "select * from articles where idutilisateur = '".$idUser."' and iscurrent = 1 and lastversion = 1" ;
+        $sql = "select a.* from articles a  where a.idutilisateur = '".$idUser."' and a.iscurrent = 1 and a.lastversion = 1 " ;
 
         if (isset($_POST['debug']))
         echo $sql."\n" ;
@@ -87,7 +87,7 @@ if ( isset($_POST['Submit']) )
             $objK->idAncestor = $row['idancestor'] ;
             $objK->NumVersion = $row['numversion'] ;
 
-            $objK->Article_Category = $row['article_category'] ;
+            $objK->Article_Tags = $row['article_tags'] ;
             $objK->Article_Title = $row['article_title'] ;
             $objK->Article_Text = $row['article_text'] ;
             $objK->Article_Html = $row['article_htmltext'] ;

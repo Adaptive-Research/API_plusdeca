@@ -42,6 +42,8 @@ if ( isset($_POST['Submit']) )
       $num_rows = pg_num_rows($result);
       if ( $num_rows > 0 )      
       {
+
+
         $sql2 = "select * from articles where idutilisateur = '".$idUser."' and idancestor = ".$_POST['idAncestor']." order by numversion desc" ;
         if (isset($_POST['debug']))
           echo $sql2."\n" ;
@@ -49,7 +51,10 @@ if ( isset($_POST['Submit']) )
         $num_rows2 = pg_num_rows($result2);
         if ( $num_rows2 > 0 )        
         {
-          $NumVersion = $_POST['NumVersion'] ;
+          $row = pg_fetch_assoc($result2) ;
+          $NumVersion = $row['numversion']  ; // on publie la derniere version de l'article
+
+
           $sql4 = "update articles set ispublished = 0 where idancestor = '".$_POST['idAncestor']."' and numversion <> ".$NumVersion ; ;
           if (isset($_POST['debug']))
             echo $sql4."\n" ;

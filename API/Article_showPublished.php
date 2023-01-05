@@ -12,7 +12,7 @@ class Article_API
   public $idUtilisateur ;
   public $idAncestor ;
   public $NumVersion ;
-  public $Article_Category ;
+  public $Article_Tags ;
   public $Article_Title ;
   public $Article_Text ;
   public $Article_Html ;  
@@ -80,7 +80,7 @@ if ( isset($_POST['Submit']) )
             $objK->idAncestor = $row['idancestor'] ;
             $objK->NumVersion = $row['numversion'] ;
 
-            $objK->Article_Category = $row['article_category'] ;
+            $objK->Article_Tags = $row['article_tags'] ;
             $objK->Article_Title = $row['article_title'] ;
             $objK->Article_Text = $row['article_text'] ;
             $objK->Article_Html = $row['article_htmltext'] ;
