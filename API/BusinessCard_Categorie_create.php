@@ -70,12 +70,13 @@ if ( isset($_POST['Submit']) )
           if($result !== false) {
             $row = pg_fetch_row($result) ;
             $id = $row[0] ;
-            if ($idancestor === 0)
+            echo "idancestor: ".$idancestor."\n" ;
+            if ($idancestor === 0 || $idancestor === "0")
             {
               $sql = "update businesscard_categories set idancestor = ".$id." where id = ".$id ;
               if (isset($_POST['debug']))
                 echo $sql."\n" ;
-              pg_query($conn, $sql);
+              $res = pg_query($conn, $sql);
             }
             
             echo "OK: ".$id ;
