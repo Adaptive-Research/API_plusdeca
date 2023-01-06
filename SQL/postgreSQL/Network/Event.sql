@@ -31,6 +31,7 @@ insert into events_type (event_type,event_format,sorder,valuelangue,nom) values(
 insert into events_type (event_type,event_format,sorder,valuelangue,nom) values(1,3,3,'FR','mixte (présentiel et en ligne)') ;
 
 insert into events_format (event_type,event_format,sorder,valuelangue,nom) values (2,1,1,'FR','présentiel') ;
+
 insert into events_format (event_type,event_format,sorder,valuelangue,nom) values (3,1,1,'FR','présentiel') ;
 insert into events_format (event_type,event_format,sorder,valuelangue,nom) values (3,4,2,'FR','téléphone') ;
 insert into events_type (event_type,event_format,sorder,valuelangue,nom) values(4,4,1,'FR','en ligne') ;
@@ -89,7 +90,8 @@ create table events_organisateur (
   iscurrent smallint default 1,
 
   idevent bigint not null,
-  idutilisateur bigint not null,  -- l'utilisateur a organise ou co organise l'evenement
+  idutilisateur bigint null,  -- l'utilisateur a organise ou co organise l'evenement
+  idgroupe bigint null,       -- meme si un utilisateur cree un event,cela peut etre au nom d'un groupe
 
   idtype_organisateur smallint ,  -- contient soit orgnaisateur soit co organisateur 
   

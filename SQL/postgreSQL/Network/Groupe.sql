@@ -1,12 +1,14 @@
 
 
+
 drop table if exists groupe ;
 create table groupe (
    id BIGSERIAL PRIMARY KEY,
-   idutilisateur bigint not null,  -- createur du groupe 
-   nom varchar(200),               -- nom du groupe
-   sdescription text               -- description de ce que fait le groupe
-   image bigint                    -- c'est l'image du groupe 
+   idutilisateur bigint not null,         -- createur du groupe 
+   nom varchar(200),                      -- nom du groupe
+   tags varchar(500),                     -- moyen de classer le groupe
+   sdescription text                      -- description de ce que fait le groupe
+   image bigint                           -- c'est l'image du groupe 
 ) ;
 
 

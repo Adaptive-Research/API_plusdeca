@@ -48,15 +48,49 @@ create table if not exists  utilisateur_infos (
 
 
 
-
 -- un utilisateur peut avoir un role au sein d'une entreprise pour l'utilisation du logiciel
 -- il peut:
 --    creer de nouveaux utilisateurs associes a une entreprise
 --    assigner un role a un utilisateur de l'entreprise
-
 
 -- quels sont les roles ?
 -- Collaborateur
 -- Admin (peut creer des employes et leur assigner un role admin ou collaborateur)
 -- Fulladmin (peut creer des employes et leur assigner un role Fulladmin, admin ou collaborateur)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+drop table if exists utilisateur_payant_fonctions;
+create table if not exists utilisateur_payant_fonctions (
+  id bigserial primary key,
+
+  nom varchar(200) ;
+) ;
+
+
+
+insert into utilisateur_payant_fonctions ( id, nom) values (1,'Groupes') ; -- possibilite de creer des groupes et d'organiser des evenements
+insert into utilisateur_payant_fonctions ( id, nom) values (2,'CRM') ;     -- Toutes les fonctions du CRM
+
+
+
+drop table if exists utilisateur_payant;
+create table if not exists utilisateur_payant (
+  id bigserial primary key,
+
+  idutilisateur bigint not null,
+  idfonction smallint not null,
+
+  date_fin timestamp ;
+) ;

@@ -69,14 +69,14 @@ if ( isset($_POST['Submit']) )
             $email = str_replace("'","''",$_POST['Email']) ;
 
 
-            if ( isset($_POST['idEntreprise']) === true)
+            if ( isset($_POST['idEntreprise']) )
               $idEntreprise = $_POST['idEntreprise'] ;
             else
               $idEntreprise = 0 ;  
 
 
             $sql = "update businesscard set lieu_rencontre = '".$lieu_rencontre."', entreprise = '".$ent."', siteweb = '".$siteweb."', telephone_entreprise = '".$telephone_entreprise."', " ;
-            $sql = $sql." identreprise = '".$identreprise."', " ;
+            $sql = $sql." identreprise = '".$idEntreprise."', " ;
             $sql = $sql." sexe = '".$sexe."', prenom = '".$prenom."', nom = '".$nom."', fonction = '".$fonction."', telephone_contact = '".$telephone_contact."', " ;
             $sql =  $sql." email = '".$email."' " ;
             $sql = $sql." where id = ".$id ;
