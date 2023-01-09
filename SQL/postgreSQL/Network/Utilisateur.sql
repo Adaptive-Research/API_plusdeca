@@ -2,6 +2,9 @@
 drop table if exists utilisateur_compte;
 create table if not exists utilisateur_compte (
   id bigserial primary key,
+
+  recommande_par bigint default 0,   -- c'est pour garder une trace de qui a apporte le chef d'entreprise, afin de lui appliquer un programme d'apporteur d'affaires 
+ 
   email varchar(250) not null,
   password varchar(250) not null,
   email_verified smallint default 0,
@@ -94,3 +97,7 @@ create table if not exists utilisateur_payant (
 
   date_fin timestamp ;
 ) ;
+
+
+
+
