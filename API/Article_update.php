@@ -59,12 +59,16 @@ if ( isset($_POST['Submit']) )
           $ATitle =  str_replace("'","''",$_POST['Article_Title']) ;   
           $ATexte =  str_replace("'","''",$_POST['Article_Text']) ;
           $AHtml =  str_replace("'","''",$_POST['Article_Html']) ;
+
+          $AImage = $_POST['Article_Image'] ;
+          if ($AImage === "")
+            $AImage = "0" ; 
       
 
           $sql4 = "insert into articles ( idutilisateur, idancestor, numversion,article_tags, article_title, article_text, article_htmltext, article_image) values ('".$idUser."','" ;
           $sql4 = $sql4.$_POST['idAncestor']."','".$NumVersion."','" ;
           $sql4 = $sql4.$Article_Tags."','".$ATitle."','".$ATexte."','".$AHtml."','" ;
-          $sql4 = $sql4.$_POST['Article_Image']."')" ;
+          $sql4 = $sql4.$AImage."')" ;
 
 
           if (isset($_POST['debug']))
