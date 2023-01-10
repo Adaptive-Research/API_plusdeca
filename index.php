@@ -100,6 +100,53 @@ Route::add('/Images/([0-9]*)/',function($idImage)
 
 
 
+
+// Groupes
+Route::add('/API/Creer-Groupe',function()
+{
+    global  $baseAPI ;
+    require $baseAPI.'/Group_create.php' ;
+},'post');
+
+
+Route::add('/API/Delete-Groupe',function()
+{
+    global  $baseAPI ;
+    require $baseAPI.'/Group_delete.php' ;
+},'post');
+
+Route::add('/API/Modifier-Groupe',function()
+{
+    global  $baseAPI ;
+    require $baseAPI.'/Group_update.php' ;
+},'post');
+
+
+Route::add('/API/Show-Groupes',function()
+{
+    global  $baseAPI ;
+    require $baseAPI.'/Group_showall.php' ;
+},'post');
+
+
+Route::add('/API/Publier-Groupe',function()
+{
+    global  $baseAPI ;
+    require $baseAPI.'/Groupe_publish.php' ;
+},'post');
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Formation
 Route::add('/API/Creer-Formation',function()
 {
