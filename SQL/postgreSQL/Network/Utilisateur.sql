@@ -12,7 +12,6 @@ create table if not exists utilisateur_compte (
   valuelangue varchar(3) default 'FR',             
 
   date_save timestamp default current_timestamp 
-
 ) ;
 
 
@@ -78,7 +77,7 @@ drop table if exists utilisateur_payant_fonctions;
 create table if not exists utilisateur_payant_fonctions (
   id bigserial primary key,
 
-  nom varchar(200) ;
+  nom varchar(200) 
 ) ;
 
 
@@ -95,9 +94,14 @@ create table if not exists utilisateur_payant (
   idutilisateur bigint not null,
   idfonction smallint not null,
 
-  date_fin timestamp ;
+  date_fin timestamp 
 ) ;
 
+
+insert into utilisateur_payant (idutilisateur,idfonction) values (1,1) ;
+insert into utilisateur_payant (idutilisateur,idfonction) values (1,2) ;
+insert into utilisateur_payant (idutilisateur,idfonction) values (2,1) ;
+insert into utilisateur_payant (idutilisateur,idfonction) values (3,2) ;
 
 
 

@@ -360,6 +360,11 @@ Route::add('/API/Modifier-Fondateur-Utilisateur',function()
     require $baseAPI.'/EntrepriseUtilisateur_updateFondateur.php' ;
 },'post');
 
+Route::add('/API/Show-Utilisateur-Payant',function()
+{
+    global  $baseAPI ;
+    require $baseAPI.'/CompteUtilisateur_showPayant.php' ;
+},'post');
 
 
 
