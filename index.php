@@ -90,11 +90,21 @@ Route::add('/API/Upload-ImageArticle',function()
     require $baseAPI.'/Upload_ImageArticle.php' ;
 },'post');
 
+
+Route::add('/API/Upload-ImageGroupe',function()
+{
+    global  $baseAPI ;
+    require $baseAPI.'/Upload_ImageGroupe.php' ;
+},'post');
+
+
+
 Route::add('/Images/([0-9]*)/',function($idImage)
 {
     global  $baseAPI ;
-    require $baseAPI.'/Download_ImageArticle.php' ;
+    require $baseAPI.'/Download_Image.php' ;
 });
+
 
 
 
