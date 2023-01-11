@@ -41,55 +41,19 @@ if ( isset($_POST['Submit']) )
       $num_rows = pg_num_rows($result);
       if ( $num_rows > 0 )        
       {
-        $sql2 = "select * from articles where idutilisateur = '".$idUser."' and idancestor = ".$_POST['idAncestor']." order by numversion desc" ;
+        $sql = "update goupes set idutilisateur = '".$idUser."', nom = '".$_POST['nom']."', tags = '".$_POST['tags']."' " ;
+        $sql = $sql.", sdescription = '".$_POST['sdescription']."' " ;
+        $sql = $sql.", group_image = '".$_POST['group_image']."' " ;
+        $sql = $sql." where id = ".$_POST['idGroup'] ;
+
         if (isset($_POST['debug']))
-          echo $sql2."\n" ;
+          echo $sql."\n" ;
 
-        $result2 = pg_query($conn, $sql2);
-        $num_rows2 = pg_num_rows($result2);
-        if ( $num_rows2 > 0 )          
-        {
-          $row = pg_fetch_assoc($result2) ;
-          $NumVersion = $row['numversion'] + 1 ;
-
-          $Article_Tags = "" ;
-          if ($_POST['Article_Tags'] != "")
-              $Article_Tags = str_replace("'","''",$_POST['Article_Tags']) ;
-
-          $ATitle =  str_replace("'","''",$_POST['Article_Title']) ;   
-          $ATexte =  str_replace("'","''",$_POST['Article_Text']) ;
-          $AHtml =  str_replace("'","''",$_POST['Article_Html']) ;
-
-          $AImage = $_POST['Article_Image'] ;
-          if ($AImage === "")
-            $AImage = "0" ; 
-      
-
-          $sql4 = "insert into articles ( idutilisateur, idancestor, numversion,article_tags, article_title, article_text, article_htmltext, article_image) values ('".$idUser."','" ;
-          $sql4 = $sql4.$_POST['idAncestor']."','".$NumVersion."','" ;
-          $sql4 = $sql4.$Article_Tags."','".$ATitle."','".$ATexte."','".$AHtml."','" ;
-          $sql4 = $sql4.$AImage."')" ;
-
-
-          if (isset($_POST['debug']))
-            echo $sql4."\n" ;
-
-          $result4 = pg_query($conn, $sql4);
-          if($result4 !== false)
-          {
-            $sql3 = "update articles set lastversion = 0 where idancestor = '".$_POST['idAncestor']."' and numversion <> ".$NumVersion ;
-            $result3 = pg_query($conn, $sql3);
-            if($result3 !== false)
-              echo "OK" ;
-            else
-              echo "ERROR: update LastVersion not done" ;
-          }
-          else
-            echo "ERROR: Article not updated" ;
-        }
+        $result = pg_query($conn, $sql);
+        if($result !== false)
+          echo "OK" ;
         else
-          echo "ERROR: no Article with this idAncestor" ;
-
+          echo "ERROR: Group not updated" ; 
       }
       else
         echo "ERROR: Token unknown" ;

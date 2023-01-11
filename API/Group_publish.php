@@ -42,39 +42,15 @@ if ( isset($_POST['Submit']) )
       $num_rows = pg_num_rows($result);
       if ( $num_rows > 0 )      
       {
-
-
-        $sql2 = "select * from articles where idutilisateur = '".$idUser."' and idancestor = ".$_POST['idAncestor']." order by numversion desc" ;
+        $sql1 = "update groupes set ispublished = 0 where id  = ".$_POST['idGroup']   ;
         if (isset($_POST['debug']))
-          echo $sql2."\n" ;
-        $result2 = pg_query($conn, $sql2);
-        $num_rows2 = pg_num_rows($result2);
-        if ( $num_rows2 > 0 )        
-        {
-          $row = pg_fetch_assoc($result2) ;
-          $NumVersion = $row['numversion']  ; // on publie la derniere version de l'article
+          echo $sql1."\n" ;        
 
-
-          $sql4 = "update articles set ispublished = 0 where idancestor = '".$_POST['idAncestor']."' and numversion <> ".$NumVersion ; ;
-          if (isset($_POST['debug']))
-            echo $sql4."\n" ;
-
-          $result4 = pg_query($conn, $sql4);
-          if($result4 !== false)
-          {
-            $sql3 = "update articles set ispublished = 1 where idancestor = '".$_POST['idAncestor']."' and numversion = ".$NumVersion ;
-            $result3 = pg_query($conn, $sql3);
-            if($result3 !== false)
-              echo "OK" ;
-            else
-              echo "ERROR: ispublished = 1 not done" ;
-          }
-          else
-            echo "ERROR: ispublished = 0 not updated" ;
-        }
+        $result = pg_query($conn, $sql1);
+        if($result !== false)
+          echo "OK" ;
         else
-          echo "ERROR: no Article with this idAncestor" ;
-
+          echo "ERROR: Group not published" ;
       }
       else
         echo "ERROR: Token unknown" ;

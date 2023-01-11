@@ -43,23 +43,20 @@ if ( isset($_POST['Submit']) )
       $num_rows = pg_num_rows($result);
       if ( $num_rows > 0 )
       {
-        $Article_Tags = "" ;
-        if ($_POST['Article_Tags'] != "")
-            $Article_Tags = str_replace("'","''",$_POST['Article_Tags']) ;
+        $tags = "" ;
+        if ($_POST['tags'] != "")
+            $tags = str_replace("'","''",$_POST['tags']) ;
         
-        $ATitle =  str_replace("'","''",$_POST['Article_Title']) ;   
-        $ATexte =  str_replace("'","''",$_POST['Article_Text']) ;
-        $AHtml =  str_replace("'","''",$_POST['Article_Html']) ;
+        $GNom =  str_replace("'","''",$_POST['nom']) ;   
+        $GDescription =  str_replace("'","''",$_POST['sdescription']) ;
 
-        $AImage = $_POST['Article_Image'] ;
-          if ($AImage === "")
-            $AImage = "0" ; 
+        $GImage = $_POST['group_image'] ;
+          if ($GImage === "")
+            $GImage = "0" ; 
 
-
-
-        $sql = "insert into articles ( idutilisateur, nom, tags, sdescription, group_image) values ('".$idUser."','" ;
-        $sql = $sql.$Article_Tags."','".$ATitle."','".$ATexte."','".$AHtml."','" ;
-        $sql = $sql.$AImage."')" ;
+        $sql = "insert into groupes ( idutilisateur, nom, tags, sdescription, group_image) values ('".$idUser."','" ;
+        $sql = $sql.$tags."','".$GNom."','".$GDescription."','" ;
+        $sql = $sql.$GImage."')" ;
 
         if (isset($_POST['debug']))
           echo $sql."\n" ;
@@ -67,18 +64,10 @@ if ( isset($_POST['Submit']) )
         $result = pg_query($conn, $sql);
         if($result !== false)
         {
-          $sql2 = "update articles set idancestor = id , numversion = 1 where idutilisateur = '".$idUser."' and idancestor = 0" ;
-          if (isset($_POST['debug']))
-          echo $sql2."\n" ;
-          $result2 = pg_query($conn, $sql2);
-          if($result2 !== false)
             echo "OK" ;
-          else
-            echo "ERROR: update idAncestor not done" ;
-
         }
         else
-          echo "ERROR: Article not saved" ;
+          echo "ERROR: Group not saved" ;
 
       }
       else

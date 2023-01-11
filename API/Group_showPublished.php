@@ -8,15 +8,12 @@ class Article_API
 {
   public $id ;
   public $iscurrent ;
-  public $isPublished ;
-  public $idUtilisateur ;
-  public $idAncestor ;
-  public $NumVersion ;
-  public $Article_Tags ;
-  public $Article_Title ;
-  public $Article_Text ;
-  public $Article_Html ;  
-  public $Article_Image ;
+  public $ispublished ;
+  public $idutilisateur ;
+  public $nom ;
+  public $sdescription ;
+  public $tags ;
+  public $group_image ;  
 }
 
 include $baseAPI.'/RTY;456/config.php';
@@ -57,7 +54,7 @@ if ( isset($_POST['Submit']) )
       $rows = $conn->query($sql) ;
       if ( $rows->num_rows > 0 )
       {
-        $sql = "select * from articles where iscurrent = 1 and ispublished = 1" ;
+        $sql = "select * from groupes where iscurrent = 1 and ispublished = 1" ;
 
         if (isset($_POST['debug']))
         echo $sql."\n" ;
@@ -73,25 +70,22 @@ if ( isset($_POST['Submit']) )
             $objK = new Article_API ;
             $objK->id = $row['id'] ;
             $objK->iscurrent = $row['iscurrent'] ;
-            $objK->isPublished = $row['ispublished'] ;
+            $objK->ispublished = $row['ispublished'] ;
 
-            $objK->idUtilisateur = $row['idutilisateur'] ;
+            $objK->idutilisateur = $row['idutilisateur'] ;
 
-            $objK->idAncestor = $row['idancestor'] ;
-            $objK->NumVersion = $row['numversion'] ;
+            $objK->nom = $row['nom'] ;
+            $objK->sdescription = $row['sdescription'] ;
 
-            $objK->Article_Tags = $row['article_tags'] ;
-            $objK->Article_Title = $row['article_title'] ;
-            $objK->Article_Text = $row['article_text'] ;
-            $objK->Article_Html = $row['article_htmltext'] ;
-            $objK->Article_Image = $row['article_image'] ;
+            $objK->tags = $row['tags'] ;
+            $objK->group_image = $row['group_image'] ;
 
             array_push($arr,$objK) ;
           }
           echo json_encode($arr) ;
         }
         else
-          echo "ERROR: no Article in database" ;
+          echo "ERROR: no Group in database" ;
       }
       else
         echo "ERROR: Token unknown" ;

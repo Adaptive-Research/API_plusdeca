@@ -98,17 +98,11 @@ Route::add('/API/Upload-ImageGroupe',function()
 },'post');
 
 
-
 Route::add('/Images/([0-9]*)/',function($idImage)
 {
     global  $baseAPI ;
     require $baseAPI.'/Download_Image.php' ;
 });
-
-
-
-
-
 
 
 // Groupes
@@ -144,17 +138,6 @@ Route::add('/API/Publier-Groupe',function()
     global  $baseAPI ;
     require $baseAPI.'/Groupe_publish.php' ;
 },'post');
-
-
-
-
-
-
-
-
-
-
-
 
 
 // Formation
@@ -507,11 +490,6 @@ Route::add('/API/Show-Infos-Utilisateur',function()
     global  $baseAPI ;
     require $baseAPI.'/Utilisateur_Infos_showall.php' ;
 },'post');
-
-
-
-
-
 
 
 // Entreprise

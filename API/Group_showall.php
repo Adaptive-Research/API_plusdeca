@@ -4,19 +4,16 @@ header("Access-Control-Allow-Origin: *");
 header("content-type: application/json");
 
 
-class Article_API
+class Groupe_API
 {
   public $id ;
   public $iscurrent ;
-  public $isPublished ;
-  public $idUtilisateur ;
-  public $idAncestor ;
-  public $NumVersion ;
-  public $Article_Tags ;
-  public $Article_Title ;
-  public $Article_Text ;
-  public $Article_Html ;  
-  public $Article_Image ;
+  public $ispublished ;
+  public $idutilisateur ;
+  public $tags ;
+  public $nom ;
+  public $sdescription ;  
+  public $group_image ;
 }
 
 include $baseAPI.'/RTY;456/config.php';
@@ -64,7 +61,7 @@ if ( isset($_POST['Submit']) )
       $num_rows = pg_num_rows($result);
       if ( $num_rows > 0 )
       {
-        $sql = "select a.* from articles a  where a.idutilisateur = '".$idUser."' and a.iscurrent = 1 and a.lastversion = 1 " ;
+        $sql = "select a.* from groupes a  where a.idutilisateur = '".$idUser."' and a.iscurrent=1 " ;
 
         if (isset($_POST['debug']))
         echo $sql."\n" ;
@@ -77,28 +74,24 @@ if ( isset($_POST['Submit']) )
         {
           while($row = pg_fetch_assoc($result))
           {
-            $objK = new Article_API ;
+            $objK = new Groupe_API ;
             $objK->id = $row['id'] ;
             $objK->iscurrent = $row['iscurrent'] ;
-            $objK->isPublished = $row['ispublished'] ;
+            $objK->ispublished = $row['ispublished'] ;
 
-            $objK->idUtilisateur = $row['idutilisateur'] ;
+            $objK->idutilisateur = $row['idutilisateur'] ;
 
-            $objK->idAncestor = $row['idancestor'] ;
-            $objK->NumVersion = $row['numversion'] ;
-
-            $objK->Article_Tags = $row['article_tags'] ;
-            $objK->Article_Title = $row['article_title'] ;
-            $objK->Article_Text = $row['article_text'] ;
-            $objK->Article_Html = $row['article_htmltext'] ;
-            $objK->Article_Image = $row['article_image'] ;
+            $objK->tags = $row['tags'] ;
+            $objK->nom = $row['nom'] ;
+            $objK->sdescription = $row['sdescription'] ;
+            $objK->group_image = $row['group_image'] ;
 
             array_push($arr,$objK) ;
           }
           echo json_encode($arr) ;
         }
         else
-          echo "ERROR: no Article in database" ;
+          echo "ERROR: no Group in database" ;
       }
       else
         echo "ERROR: Token unknown" ;
