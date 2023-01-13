@@ -16,7 +16,7 @@ if ( $num_rows > 0 )
     //echo $filepath ;
     
     if (file_exists($filepath)) {
-        touch($filepath,filemtime($filepath),time()); // this will just record the time of access in file inode. you can write your own code to do whatever
+        touch($filepath,filemtime($filepath),time()); 
         $path_parts=pathinfo($filepath);
         switch(strtolower($path_parts['extension']))
         {
@@ -38,6 +38,7 @@ if ( $num_rows > 0 )
         header('Content-Length: ' . filesize($filepath));
         header("Last-Modified: Fri, 03 Mar 2004 06:32:31 GMT");
         readfile($filepath);
+        
     }
     else {
     header( "HTTP/1.0 404 Not Found");

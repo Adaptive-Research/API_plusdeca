@@ -139,11 +139,6 @@ Route::add('/API/Show-Groupes',function()
 },'post');
 
 
-Route::add('/API/Publier-Groupe',function()
-{
-    global  $baseAPI ;
-    require $baseAPI.'/Groupe_publish.php' ;
-},'post');
 
 
 
