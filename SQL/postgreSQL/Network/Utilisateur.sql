@@ -103,5 +103,7 @@ insert into utilisateur_payant (idutilisateur,idfonction) values (1,2) ;
 insert into utilisateur_payant (idutilisateur,idfonction) values (2,1) ;
 insert into utilisateur_payant (idutilisateur,idfonction) values (3,2) ;
 
+insert into utilisateur_payant (idutilisateur,idfonction) values (10,1) ;
+insert into utilisateur_payant (idutilisateur,idfonction) values (10,2) ;
 
 

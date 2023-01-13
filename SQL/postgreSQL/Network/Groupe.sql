@@ -6,13 +6,12 @@ create table groupes (
    id BIGSERIAL PRIMARY KEY,
 
    iscurrent smallint default 1,
-   ispublished smallint default 0,
 
    idutilisateur bigint not null,         -- createur du groupe 
    nom varchar(200),                      -- nom du groupe
    tags varchar(500),                     -- moyen de classer le groupe
-   sdescription text                      -- description de ce que fait le groupe
-   group_image bigint                           -- c'est l'image du groupe 
+   sdescription text,                     -- description de ce que fait le groupe
+   group_image bigint,                    -- c'est l'image du groupe 
 
    date_save timestamp default current_timestamp
 ) ;
