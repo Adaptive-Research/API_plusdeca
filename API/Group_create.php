@@ -55,11 +55,7 @@ if ( isset($_POST['Submit']) )
             $GImage = "0" ; 
 
         $sql = "insert into groupes ( idutilisateur, nom, tags, sdescription, group_image) values ('".$idUser."','" ;
-<<<<<<< HEAD
         $sql = $sql.$GNom."','".$tags."','".$GDescription."','" ;
-=======
-        $sql = $sql.$tags."','".$GNom."','".$GDescription."','" ;
->>>>>>> 6ad83c97d250d635590526a702477278a36e9a53
         $sql = $sql.$GImage."')" ;
 
         if (isset($_POST['debug']))

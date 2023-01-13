@@ -8,10 +8,6 @@ class Groupe_API
 {
   public $id ;
   public $iscurrent ;
-<<<<<<< HEAD
-=======
-  public $ispublished ;
->>>>>>> 6ad83c97d250d635590526a702477278a36e9a53
   public $idutilisateur ;
   public $tags ;
   public $nom ;
@@ -80,10 +76,6 @@ if ( isset($_POST['Submit']) )
             $objK = new Groupe_API ;
             $objK->id = $row['id'] ;
             $objK->iscurrent = $row['iscurrent'] ;
-<<<<<<< HEAD
-=======
-            $objK->ispublished = $row['ispublished'] ;
->>>>>>> 6ad83c97d250d635590526a702477278a36e9a53
 
             $objK->idutilisateur = $row['idutilisateur'] ;
 
