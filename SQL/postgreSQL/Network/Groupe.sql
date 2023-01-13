@@ -1,6 +1,5 @@
 
 
-
 drop table if exists groupes ;
 create table groupes (
    id BIGSERIAL PRIMARY KEY,
@@ -22,7 +21,6 @@ create table groupe_manager (
    idgroupe bigint not null,                        -- id du groupe dont l'utilisateur est l'un des managers
    idutilisateur bigint not null,                   -- manager du groupe
    date_save timestamp default current_timestamp    -- date d'attribution du role de manager du groupe 
- 
 ) ;
 
 
