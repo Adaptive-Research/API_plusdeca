@@ -126,13 +126,17 @@ Route::add('/API/Modifier-Groupe',function()
 },'post');
 
 
-Route::add('/API/Show-Groupes',function()
+Route::add('/API/Show-All-Groupes',function()
 {
     global  $baseAPI ;
     require $baseAPI.'/Group_showall.php' ;
 },'post');
 
-
+Route::add('/API/Show-Groupes',function()
+{
+    global  $baseAPI ;
+    require $baseAPI.'/Group_user_showall.php' ;
+},'post');
 
 
 // Formation
