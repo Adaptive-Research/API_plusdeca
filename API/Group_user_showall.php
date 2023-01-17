@@ -12,6 +12,7 @@ class Groupe_API
   public $tags ;
   public $nom ;
   public $sdescription ;  
+  public $htmltext ;  
   public $group_image ;
 }
 
@@ -82,6 +83,7 @@ if ( isset($_POST['Submit']) )
             $objK->tags = $row['tags'] ;
             $objK->nom = $row['nom'] ;
             $objK->sdescription = $row['sdescription'] ;
+            $objK->htmltext = $row['htmltext'] ;
             $objK->group_image = $row['group_image'] ;
 
             array_push($arr,$objK) ;
