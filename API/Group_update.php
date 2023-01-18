@@ -47,6 +47,7 @@ if ( isset($_POST['Submit']) )
         $GNom =  str_replace("'","''",$_POST['nom']) ;   
         $GDescription =  str_replace("'","''",$_POST['sdescription']) ;
         $GHtml =  str_replace("'","''",$_POST['htmltext']) ;
+        $GCity =  str_replace("'","''",$_POST['group_city']) ;
 
         $GImage = $_POST['group_image'] ;
         if ($GImage === "")
@@ -55,6 +56,7 @@ if ( isset($_POST['Submit']) )
         $sql = "update groupes set idutilisateur = '".$idUser."', nom = '".$GNom."', tags = '".$tags."' " ;
         $sql = $sql.", sdescription = '".$GDescription."' " ;
         $sql = $sql.", htmltext = '".$GHtml."' " ;
+        $sql = $sql.", group_city = '".$GCity."' " ;
         $sql = $sql.", group_image = '".$GImage."' " ;
         $sql = $sql." where id = ".$_POST['idGroup'] ;
 

@@ -1,6 +1,6 @@
 
-drop table if exists groupeparams ;
-create table groupeparams (
+drop table if exists groupe_params ;
+create table groupe_params (
    id BIGSERIAL PRIMARY KEY,
 
    iscurrent smallint default 1,

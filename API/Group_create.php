@@ -50,14 +50,15 @@ if ( isset($_POST['Submit']) )
         $GNom =  str_replace("'","''",$_POST['nom']) ;   
         $GDescription =  str_replace("'","''",$_POST['sdescription']) ;
         $GHtml =  str_replace("'","''",$_POST['htmltext']) ;
+        $GCity =  str_replace("'","''",$_POST['group_city']) ;
 
         $GImage = $_POST['group_image'] ;
           if ($GImage === "")
             $GImage = "0" ; 
 
-        $sql = "insert into groupes ( idutilisateur, nom, tags, sdescription, htmltext, group_image) values ('".$idUser."','" ;
+        $sql = "insert into groupes ( idutilisateur, nom, tags, sdescription, htmltext, group_city, group_image) values ('".$idUser."','" ;
 
-        $sql = $sql.$GNom."','".$tags."','".$GDescription."','".$GHtml. "','" ;
+        $sql = $sql.$GNom."','".$tags."','".$GDescription."','".$GHtml. "','".$GCity."','" ;
         $sql = $sql.$GImage."')" ;
 
         if (isset($_POST['debug']))

@@ -13,6 +13,7 @@ class Groupe_API
   public $nom ;
   public $sdescription ;  
   public $htmltext ;  
+  public $group_city ;
   public $group_image ;
 }
 
@@ -84,6 +85,7 @@ if ( isset($_POST['Submit']) )
             $objK->nom = $row['nom'] ;
             $objK->sdescription = $row['sdescription'] ;
             $objK->htmltext = $row['htmltext'] ;
+            $objK->group_city = $row['group_city'] ;
             $objK->group_image = $row['group_image'] ;
 
             array_push($arr,$objK) ;

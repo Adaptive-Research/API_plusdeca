@@ -14,6 +14,7 @@ create table groupes (
    city varchar(200),                    -- c'est la ville du groupe 
    group_image bigint,                    -- c'est l'image du groupe 
    idgroupeparams bigint default null,
+   default_validation bigint default null,
 
    date_save timestamp default current_timestamp
 ) ;
