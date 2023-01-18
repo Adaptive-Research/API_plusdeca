@@ -11,7 +11,9 @@ create table groupes (
    tags varchar(500),                     -- moyen de classer le groupe
    sdescription text,                     -- description de ce que fait le groupe
    htmltext text default null,
+   city varchar(200),                    -- c'est la ville du groupe 
    group_image bigint,                    -- c'est l'image du groupe 
+   idgroupeparams bigint default null,
 
    date_save timestamp default current_timestamp
 ) ;

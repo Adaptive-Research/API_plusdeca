@@ -61,7 +61,7 @@ if ( isset($_POST['Submit']) )
       $num_rows = pg_num_rows($result);
       if ( $num_rows > 0 )
       {
-        $sql = "select a.* from groupes a  where a.idutilisateur = '".$idUser."' and a.iscurrent=1 " ;
+        $sql = "select a.* from groupes a  where a.idutilisateur = '".$idUser."' and a.iscurrent=1 order by date_save desc" ;
 
         if (isset($_POST['debug']))
         echo $sql."\n" ;

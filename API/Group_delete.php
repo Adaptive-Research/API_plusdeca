@@ -39,7 +39,7 @@ if ( isset($_POST['Submit']) ) // Soit c'est la 1ère sauvegarde, soit c'est au 
       $num_rows = pg_num_rows($result);
       if ( $num_rows > 0 )
       {
-        $sql1 = "update groupes set iscurrent = 0 where id  = ".$_POST['idGroup']   ;
+        $sql1 = "update groupes set iscurrent = 0 where id  = ".$_POST['id']   ;
         if (isset($_POST['debug']))
           echo $sql1."\n" ;        
 
