@@ -15,6 +15,7 @@ class Groupe_API
   public $htmltext ;  
   public $group_city ;
   public $group_image ;
+  public $group_number ;
 }
 
 include $baseAPI.'/RTY;456/config.php';
@@ -62,7 +63,11 @@ if ( isset($_POST['Submit']) )
       $num_rows = pg_num_rows($result);
       if ( $num_rows > 0 )
       {
-        $sql = "select a.* from groupes a where a.iscurrent=1 order by date_save desc" ;
+        $sql = "select * from groupes g left join (
+          select idgroupe, count(*) as nombre from groupe_utilisateur  group by idgroupe )  temp 
+          on g.id = temp.idgroupe
+          where g.iscurrent = 1 
+          order by g.id desc " ;
 
         if (isset($_POST['debug']))
         echo $sql."\n" ;
@@ -85,6 +90,7 @@ if ( isset($_POST['Submit']) )
             $objK->htmltext = $row['htmltext'] ;
             $objK->group_city = $row['group_city'] ;
             $objK->group_image = $row['group_image'] ;
+            $objK->group_number = $row['nombre'] ;
 
             array_push($arr,$objK) ;
           }
