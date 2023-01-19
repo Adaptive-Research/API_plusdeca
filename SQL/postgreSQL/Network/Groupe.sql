@@ -39,3 +39,20 @@ create table groupe_utilisateur (
 
 -- le premier groupe que je vaia creer c'est: Entreprendre en pays de Nemours
 
+
+
+
+
+drop table if exists groupe_params ;
+create table groupe_params (
+   id BIGSERIAL PRIMARY KEY,
+
+   iscurrent smallint default 1,
+
+   idgroup bigint not null,             -- identifiant du groupe 
+   welcomemsg text,                     -- description de ce que fait le groupe
+   byemsg text,
+   valuelangue text default 'FR',
+
+   date_save timestamp default current_timestamp
+) ;
