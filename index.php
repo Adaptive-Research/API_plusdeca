@@ -138,6 +138,12 @@ Route::add('/API/Show-Groupes',function()
     require $baseAPI.'/Group_user_showall.php' ;
 },'post');
 
+Route::add('/API/Abonner-Groupe',function()
+{
+    global  $baseAPI ;
+    require $baseAPI.'/Group_subscribe.php' ;
+},'post');
+
 
 // Formation
 Route::add('/API/Creer-Formation',function()
