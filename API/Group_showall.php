@@ -8,6 +8,7 @@ class Groupe_API
 {
   public $id ;
   public $iscurrent ;
+  public $idutilisateur ;
   public $tags ;
   public $nom ;
   public $sdescription ;  
@@ -77,7 +78,7 @@ if ( isset($_POST['Submit']) )
             $objK = new Groupe_API ;
             $objK->id = $row['id'] ;
             $objK->iscurrent = $row['iscurrent'] ;
-
+            $objK->idutilisateur = $row['idutilisateur'] ;
             $objK->tags = $row['tags'] ;
             $objK->nom = $row['nom'] ;
             $objK->sdescription = $row['sdescription'] ;
