@@ -48,9 +48,15 @@ if ( isset($_POST['Submit']) )
         if ($_POST['idgroupe'] != "")
         $idGroupe = str_replace("'","''",$_POST['idgroupe']) ;
         
-        $sql1 = "select a.* from groupe_utilisateur a where a.idgroupe = ". $idGroupe ."and a.idutilisateur = " . $idUser. "";
+        $sql1 = "select a.* from groupe_utilisateur a where a.idgroupe = ". $idGroupe ." and a.idutilisateur = " . $idUser. "";
+        
+        if (isset($_POST['debug']))
+          echo $sql1."\n" ;
 
-        if($sql1 !=  null) {
+        $result1 = pg_query($conn, $sql1);
+        $num_rows1 = pg_num_rows($result1);
+        
+        if($num_rows1 == 0) {
 
           $sql2 = "insert into groupe_utilisateur( idgroupe, idutilisateur) values('".$idGroupe."','" . $idUser."')" ;
   
@@ -65,7 +71,7 @@ if ( isset($_POST['Submit']) )
             echo "ERROR: Group submission don't done" ;
           }
         } else {
-          echo "ERROR: You're already memeber of this group" ;
+          echo "ERROR: You're already member of this group" ;
         }
 
       }

@@ -132,6 +132,12 @@ Route::add('/API/Show-All-Groupes',function()
     require $baseAPI.'/Group_showall.php' ;
 },'post');
 
+Route::add('/API/Show-One-Group',function()
+{
+    global  $baseAPI ;
+    require $baseAPI.'/Group_show_one.php' ;
+},'post');
+
 Route::add('/API/Show-Groupes',function()
 {
     global  $baseAPI ;
