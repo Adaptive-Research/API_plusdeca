@@ -63,7 +63,7 @@ if ( isset($_POST['Submit']) )
       $num_rows = pg_num_rows($result);
       if ( $num_rows > 0 )
       {
-        $sql = "select a.* from groupes a where a.id = ".$_POST['idGroup']." ";
+        $sql = "select * from groupes where id = ".$_POST['id']." ";
         
         if (isset($_POST['debug']))
         echo $sql."\n" ;
