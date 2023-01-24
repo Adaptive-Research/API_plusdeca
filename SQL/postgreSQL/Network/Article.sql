@@ -32,10 +32,10 @@ create table articles (
   article_title varchar(200) not null,
   article_text text default null,
   article_htmltext text default null,
-  article_image BIGINT  default 0,
+  article_image BIGINT  default 1,
 
   date_save timestamp default current_timestamp
 ) ;
 
-
+-- alter table articles alter column article_image set default  2 ;
 

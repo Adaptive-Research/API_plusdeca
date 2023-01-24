@@ -52,14 +52,14 @@ if ( isset($_POST['Submit']) )
         $AHtml =  str_replace("'","''",$_POST['Article_Html']) ;
 
         $AImage = $_POST['Article_Image'] ;
-          if ($AImage === "")
-            $AImage = "0" ; 
-
+        if ($AImage === "") 
+          $AImage = "2" ;
 
 
         $sql = "insert into articles ( idutilisateur, article_tags, article_title, article_text, article_htmltext, article_image) values ('".$idUser."','" ;
         $sql = $sql.$Article_Tags."','".$ATitle."','".$ATexte."','".$AHtml."','" ;
         $sql = $sql.$AImage."')" ;
+          
 
         if (isset($_POST['debug']))
           echo $sql."\n" ;
