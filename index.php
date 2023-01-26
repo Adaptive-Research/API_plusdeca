@@ -150,6 +150,18 @@ Route::add('/API/Abonner-Groupe',function()
     require $baseAPI.'/Group_subscribe.php' ;
 },'post');
 
+Route::add('/API/Desabonner-Groupe',function()
+{
+    global  $baseAPI ;
+    require $baseAPI.'/Group_unSubscribe.php' ;
+},'post');
+
+Route::add('/API/Groupe_membres',function()
+{
+    global  $baseAPI ;
+    require $baseAPI.'/Group_showGroupMembers.php' ;
+},'post');
+
 
 // Formation
 Route::add('/API/Creer-Formation',function()

@@ -16,6 +16,7 @@ class Groupe_API
   public $group_city ;
   public $group_image ;
   public $group_number;
+  public $isMember;
 }
 
 include $baseAPI.'/RTY;456/config.php';
@@ -79,9 +80,19 @@ if ( isset($_POST['Submit']) )
             $objK = new Groupe_API ;
 
             $sql1 = "select a.* from groupe_utilisateur a where a.idgroupe= ".$row['id']." " ;
-
+            
             $result1 = pg_query($conn, $sql1);
             $num_rows1 = pg_num_rows($result1);
+
+            $sql2 = "select a.* from groupe_utilisateur a where a.idgroupe= ".$row['id']." and idutilisateur = ".$idUser." " ;
+
+            $result2 = pg_query($conn, $sql2);
+            $num_rows2 = pg_num_rows($result2);
+            if ( $num_rows2 > 0 ){
+              $isMember = true;
+            }else {
+              $isMember = false;
+            }
 
             $objK->id = $row['id'] ;
             $objK->iscurrent = $row['iscurrent'] ;
@@ -93,6 +104,7 @@ if ( isset($_POST['Submit']) )
             $objK->group_city = $row['group_city'] ;
             $objK->group_image = $row['group_image'] ;
             $objK->group_number = $num_rows1 ;
+            $objK->isMember = $isMember ;
 
             array_push($arr,$objK) ;
           }
