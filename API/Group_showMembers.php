@@ -11,6 +11,8 @@ class InfosUtilisateur_API
   public $idUtilisateur ;
   public $Prenom ;
   public $Nom ;
+  public $Fonction ;
+  public $Entreprise ;
 
 }
 
@@ -61,9 +63,11 @@ if ( isset($_POST['Submit']) )
       {
 
 
-        $sql1 = "select g.id, g.nom as gnom, gu.idutilisateur, ui.prenom, ui.nom from groupe_utilisateur gu 
+        $sql1 = "select g.id, g.nom as gnom, gu.idutilisateur, ui.prenom, ui.nom, eu.fonction, ee.nom as entreprise from groupe_utilisateur gu 
                 left join utilisateur_infos ui on gu.idutilisateur = ui.iduser
                 left join groupes g on gu.idgroupe = g.id
+                left join entreprise_utilisateur eu on eu.idutilisateur = gu.idutilisateur
+                left join entreprise_etablissement ee on ee.id = eu.identreprise
                 where g.id = ".$_POST['id'] ;
         
         if (isset($_POST['debug']))
@@ -87,6 +91,9 @@ if ( isset($_POST['Submit']) )
             
                   $objK->Prenom = $row['prenom'] ;
                   $objK->Nom = $row['nom'] ;
+
+                  $objK->Fonction = $row['fonction'] ;
+                  $objK->Entreprise = $row['entreprise'] ;
             
                   array_push($arr,$objK) ;
               }
