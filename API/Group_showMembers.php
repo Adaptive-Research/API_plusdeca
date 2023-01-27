@@ -6,19 +6,11 @@ header("content-type: application/json");
 class InfosUtilisateur_API
 {
   public $id ;
-  public $idUser ;
+  public $Groupe_Nom;
 
+  public $idUtilisateur ;
   public $Prenom ;
   public $Nom ;
-
-  public $Email ;
-  public $EmailVisible ;
-
-  public $Telephone ;
-  public $TelephoneVisible ;
-
-  public $Bio ;
-  public $BioVisible ;
 
 }
 
@@ -63,61 +55,45 @@ if ( isset($_POST['Submit']) )
       if (isset($_POST['debug']))
         echo $sql."\n" ;
 
-        $result = pg_query($conn, $sql);
+      $result = pg_query($conn, $sql);
       $num_rows = pg_num_rows($result);
       if ( $num_rows > 0 )
       {
-        $sql1 = "select * from groupes where id = ".$_POST['id']." limit 1 ";
+
+
+        $sql1 = "select g.id, g.nom as gnom, gu.idutilisateur, ui.prenom, ui.nom from groupe_utilisateur gu 
+                left join utilisateur_infos ui on gu.idutilisateur = ui.iduser
+                left join groupes g on gu.idgroupe = g.id
+                where g.id = ".$_POST['id'] ;
         
         if (isset($_POST['debug']))
           echo $sql1."\n" ;
         
         $arr = [] ;
-        
         $result1 = pg_query($conn, $sql1);
         $num_rows1 = pg_num_rows($result1);
         if ( $num_rows1 > 0 )
         {
-          while($row1 = pg_fetch_assoc($result1))
-          {
-            $sql2 = "select * from utilisateur_infos where id = ".$row1['idutilisateur']."";
-            if (isset($_POST['debug']))
-              echo $sql2."\n" ;
-
-            $result2 = pg_query($conn, $sql2);
-            $num_rows2 = pg_num_rows($result2);
-            if ( $num_rows2 > 0 )
-            {
-              while($row_groupe_user = pg_fetch_assoc($result2))
+              while($row = pg_fetch_assoc($result1))
               {
 
                   $objK = new InfosUtilisateur_API ;
 
                   $objK->id = $row['id'] ;
-                  $objK->idUser = $row['iduser'] ;
+                  $objK->Groupe_Nom = $row['gnom'] ;
+
+
+                  $objK->idUtilisateur = $row['idutilisateur'] ;
             
                   $objK->Prenom = $row['prenom'] ;
                   $objK->Nom = $row['nom'] ;
             
-                  $objK->Email = $row['email'] ;
-                  $objK->EmailVisible = $row['emailvisible'] ;
-            
-                  $objK->Telephone = $row['telephone'] ;
-                  $objK->TelephoneVisible = $row['telephonevisible'] ;
-            
-                  $objK->Bio = $row['bio'] ;
-                  $objK->BioVisible = $row['biovisible'] ;
-            
                   array_push($arr,$objK) ;
               }
               echo json_encode($arr) ;
-            }
-            else
-              echo "ERROR: No other members into this group than the group manager";
-          }
         }
         else
-          echo "ERROR: no Group in database" ;
+          echo "ERROR: no user for this group in database" ;
       }
       else
         echo "ERROR: Token unknown" ;

@@ -135,13 +135,13 @@ Route::add('/API/Show-All-Groupes',function()
 Route::add('/API/Show-One-Group',function()
 {
     global  $baseAPI ;
-    require $baseAPI.'/Group_show_one.php' ;
+    require $baseAPI.'/Group_showone.php' ;
 },'post');
 
 Route::add('/API/Show-Groupes',function()
 {
     global  $baseAPI ;
-    require $baseAPI.'/Group_user_showall.php' ;
+    require $baseAPI.'/Group_showallUtilisateurs.php' ;
 },'post');
 
 Route::add('/API/Abonner-Groupe',function()
@@ -159,7 +159,7 @@ Route::add('/API/Desabonner-Groupe',function()
 Route::add('/API/Groupe_membres',function()
 {
     global  $baseAPI ;
-    require $baseAPI.'/Group_showGroupMembers.php' ;
+    require $baseAPI.'/Group_showMembers.php' ;
 },'post');
 
 
