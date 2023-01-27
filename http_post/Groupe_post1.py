@@ -1,6 +1,6 @@
 import requests
 
-url = 'https://test.adaptive-api.fr/API/Groupe_membres'
+url = 'https://test.adaptive-api.fr/API/Show-MembresGroupe'
 
 
 
