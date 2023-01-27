@@ -132,6 +132,12 @@ Route::add('/API/Show-All-Groupes',function()
     require $baseAPI.'/Group_showall.php' ;
 },'post');
 
+Route::add('/API/Show-One-Group',function()
+{
+    global  $baseAPI ;
+    require $baseAPI.'/Group_show_one.php' ;
+},'post');
+
 Route::add('/API/Show-Groupes',function()
 {
     global  $baseAPI ;
@@ -142,6 +148,18 @@ Route::add('/API/Abonner-Groupe',function()
 {
     global  $baseAPI ;
     require $baseAPI.'/Group_subscribe.php' ;
+},'post');
+
+Route::add('/API/Desabonner-Groupe',function()
+{
+    global  $baseAPI ;
+    require $baseAPI.'/Group_unSubscribe.php' ;
+},'post');
+
+Route::add('/API/Groupe_membres',function()
+{
+    global  $baseAPI ;
+    require $baseAPI.'/Group_showGroupMembers.php' ;
 },'post');
 
 

@@ -76,17 +76,21 @@ if ( isset($_POST['Submit']) )
           while($row = pg_fetch_assoc($result))
           {
             $objK = new Groupe_API ;
+            
+            $sql1 = "select a.* from groupe_utilisateur a where a.idgroupe= ".$row['id']." " ;
+            $result1 = pg_query($conn, $sql1);
+            $num_rows1 = pg_num_rows($result1);
+
             $objK->id = $row['id'] ;
             $objK->iscurrent = $row['iscurrent'] ;
-
             $objK->idutilisateur = $row['idutilisateur'] ;
-
             $objK->tags = $row['tags'] ;
             $objK->nom = $row['nom'] ;
             $objK->sdescription = $row['sdescription'] ;
             $objK->htmltext = $row['htmltext'] ;
             $objK->group_city = $row['group_city'] ;
             $objK->group_image = $row['group_image'] ;
+            $objK->group_number = $num_rows1 ;
 
             array_push($arr,$objK) ;
           }

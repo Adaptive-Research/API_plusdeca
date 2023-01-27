@@ -60,16 +60,12 @@ if ( isset($_POST['Submit']) )
       if (isset($_POST['debug']))
         echo $sql."\n" ;
 
-      $result = pg_query($conn, $sql);
+        $result = pg_query($conn, $sql);
       $num_rows = pg_num_rows($result);
       if ( $num_rows > 0 )
       {
-        $sql = "select g.*, temp.nombre, temp2.ismember  from groupes g 
-        left join ( select idgroupe, count(*) as nombre from groupe_utilisateur  group by idgroupe )  temp on g.id = temp.idgroupe
-        left join ( select idgroupe, id as IsMember from groupe_utilisateur where idutilisateur = 1  ) temp2 on g.id = temp2.idgroupe
-        where g.iscurrent = 1 
-        order by g.id desc " ;
-
+        $sql = "select * from groupes where id = ".$_POST['id']." limit 1 ";
+        
         if (isset($_POST['debug']))
         echo $sql."\n" ;
         
@@ -83,10 +79,20 @@ if ( isset($_POST['Submit']) )
           {
             $objK = new Groupe_API ;
 
-            if ( $row['ismember'] !== null) 
+            $sql1 = "select a.* from groupe_utilisateur a where a.idgroupe= ".$row['id']." " ;
+
+            $result1 = pg_query($conn, $sql1);
+            $num_rows1 = pg_num_rows($result1);
+            
+            $sql2 = "select a.* from groupe_utilisateur a where a.idgroupe= ".$row['id']." and idutilisateur = ".$idUser." " ;
+
+            $result2 = pg_query($conn, $sql2);
+            $num_rows2 = pg_num_rows($result2);
+            if ( $num_rows2 > 0 ){
               $isMember = true;
-            else 
+            }else {
               $isMember = false;
+            }
 
             $objK->id = $row['id'] ;
             $objK->iscurrent = $row['iscurrent'] ;
@@ -97,7 +103,7 @@ if ( isset($_POST['Submit']) )
             $objK->htmltext = $row['htmltext'] ;
             $objK->group_city = $row['group_city'] ;
             $objK->group_image = $row['group_image'] ;
-            $objK->group_number = $row['nombre'] ;
+            $objK->group_number = $num_rows1 ;
             $objK->isMember = $isMember ;
 
             array_push($arr,$objK) ;

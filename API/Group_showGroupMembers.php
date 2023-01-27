@@ -3,20 +3,23 @@
 header("Access-Control-Allow-Origin: *");
 header("content-type: application/json");
 
-
-class Groupe_API
+class InfosUtilisateur_API
 {
   public $id ;
-  public $iscurrent ;
-  public $idutilisateur ;
-  public $tags ;
-  public $nom ;
-  public $sdescription ;  
-  public $htmltext ;  
-  public $group_city ;
-  public $group_image ;
-  public $group_number;
-  public $isMember;
+  public $idUser ;
+
+  public $Prenom ;
+  public $Nom ;
+
+  public $Email ;
+  public $EmailVisible ;
+
+  public $Telephone ;
+  public $TelephoneVisible ;
+
+  public $Bio ;
+  public $BioVisible ;
+
 }
 
 include $baseAPI.'/RTY;456/config.php';
@@ -60,49 +63,58 @@ if ( isset($_POST['Submit']) )
       if (isset($_POST['debug']))
         echo $sql."\n" ;
 
-      $result = pg_query($conn, $sql);
+        $result = pg_query($conn, $sql);
       $num_rows = pg_num_rows($result);
       if ( $num_rows > 0 )
       {
-        $sql = "select g.*, temp.nombre, temp2.ismember  from groupes g 
-        left join ( select idgroupe, count(*) as nombre from groupe_utilisateur  group by idgroupe )  temp on g.id = temp.idgroupe
-        left join ( select idgroupe, id as IsMember from groupe_utilisateur where idutilisateur = 1  ) temp2 on g.id = temp2.idgroupe
-        where g.iscurrent = 1 
-        order by g.id desc " ;
-
+        $sql1 = "select * from groupes where id = ".$_POST['id']." limit 1 ";
+        
         if (isset($_POST['debug']))
-        echo $sql."\n" ;
+          echo $sql1."\n" ;
         
         $arr = [] ;
         
-        $result = pg_query($conn, $sql);
-        $num_rows = pg_num_rows($result);
-        if ( $num_rows > 0 )
+        $result1 = pg_query($conn, $sql1);
+        $num_rows1 = pg_num_rows($result1);
+        if ( $num_rows1 > 0 )
         {
-          while($row = pg_fetch_assoc($result))
+          while($row1 = pg_fetch_assoc($result1))
           {
-            $objK = new Groupe_API ;
+            $sql2 = "select * from utilisateur_infos where id = ".$row1['idutilisateur']."";
+            if (isset($_POST['debug']))
+              echo $sql2."\n" ;
 
-            if ( $row['ismember'] !== null) 
-              $isMember = true;
-            else 
-              $isMember = false;
+            $result2 = pg_query($conn, $sql2);
+            $num_rows2 = pg_num_rows($result2);
+            if ( $num_rows2 > 0 )
+            {
+              while($row_groupe_user = pg_fetch_assoc($result2))
+              {
 
-            $objK->id = $row['id'] ;
-            $objK->iscurrent = $row['iscurrent'] ;
-            $objK->idutilisateur = $row['idutilisateur'] ;
-            $objK->tags = $row['tags'] ;
-            $objK->nom = $row['nom'] ;
-            $objK->sdescription = $row['sdescription'] ;
-            $objK->htmltext = $row['htmltext'] ;
-            $objK->group_city = $row['group_city'] ;
-            $objK->group_image = $row['group_image'] ;
-            $objK->group_number = $row['nombre'] ;
-            $objK->isMember = $isMember ;
+                  $objK = new InfosUtilisateur_API ;
 
-            array_push($arr,$objK) ;
+                  $objK->id = $row['id'] ;
+                  $objK->idUser = $row['iduser'] ;
+            
+                  $objK->Prenom = $row['prenom'] ;
+                  $objK->Nom = $row['nom'] ;
+            
+                  $objK->Email = $row['email'] ;
+                  $objK->EmailVisible = $row['emailvisible'] ;
+            
+                  $objK->Telephone = $row['telephone'] ;
+                  $objK->TelephoneVisible = $row['telephonevisible'] ;
+            
+                  $objK->Bio = $row['bio'] ;
+                  $objK->BioVisible = $row['biovisible'] ;
+            
+                  array_push($arr,$objK) ;
+              }
+              echo json_encode($arr) ;
+            }
+            else
+              echo "ERROR: No other members into this group than the group manager";
           }
-          echo json_encode($arr) ;
         }
         else
           echo "ERROR: no Group in database" ;
