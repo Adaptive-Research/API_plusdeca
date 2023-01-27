@@ -51,7 +51,7 @@ if ( isset($_POST['Submit']) )
 
         $GImage = $_POST['group_image'] ;
         if ($GImage === "")
-          $GImage = "0" ; 
+          $GImage = "1" ; 
 
         $sql = "update groupes set idutilisateur = '".$idUser."', nom = '".$GNom."', tags = '".$tags."' " ;
         $sql = $sql.", sdescription = '".$GDescription."' " ;

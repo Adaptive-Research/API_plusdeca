@@ -12,12 +12,16 @@ create table groupes (
    sdescription text,                     -- description de ce que fait le groupe
    htmltext text default null,
    group_city varchar(200),                    -- c'est la ville du groupe 
-   group_image bigint,                    -- c'est l'image du groupe 
+   group_image bigint default 1,                    -- c'est l'image du groupe 
    idgroupeparams bigint default null,
    default_validation smallint default 1,
 
    date_save timestamp default current_timestamp
 ) ;
+
+
+-- alter table groupes alter column group_image set default  1 ;
+
 
 drop table if exists groupe_manager ;
 create table groupe_manager (
@@ -39,3 +43,20 @@ create table groupe_utilisateur (
 
 -- le premier groupe que je vaia creer c'est: Entreprendre en pays de Nemours
 
+
+
+
+
+drop table if exists groupe_params ;
+create table groupe_params (
+   id BIGSERIAL PRIMARY KEY,
+
+   iscurrent smallint default 1,
+
+   idgroup bigint not null,             -- identifiant du groupe 
+   welcomemsg text,                     -- description de ce que fait le groupe
+   byemsg text,
+   valuelangue text default 'FR',
+
+   date_save timestamp default current_timestamp
+) ;
