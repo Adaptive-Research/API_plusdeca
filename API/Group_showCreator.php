@@ -63,12 +63,11 @@ if ( isset($_POST['Submit']) )
       {
 
 
-        $sql1 = "select g.id, g.nom as gnom, gu.idutilisateur, ui.prenom, ui.nom, eu.fonction, ee.nom as entreprise from groupe_utilisateur gu 
-                left join utilisateur_infos ui on gu.idutilisateur = ui.iduser
-                left join groupes g on gu.idgroupe = g.id
-                left join entreprise_utilisateur eu on eu.idutilisateur = gu.idutilisateur
-                left join entreprise_etablissement ee on ee.id = eu.identreprise
-                where g.id = ".$_POST['id'] ;
+        $sql1 = "select g.id, g.nom as gnom, g.idutilisateur, ui.prenom, ui.nom, eu.fonction, ee.nom as entreprise from groupes g
+                    left join utilisateur_infos ui on ui.iduser = g.idutilisateur
+                    left join entreprise_utilisateur eu on eu.idutilisateur = g.idutilisateur
+                    left join entreprise_etablissement ee on ee.id = eu.identreprise
+                  where g.id = ".$_POST['id'] ;
         
         if (isset($_POST['debug']))
           echo $sql1."\n" ;

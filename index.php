@@ -156,11 +156,22 @@ Route::add('/API/Desabonner-Groupe',function()
     require $baseAPI.'/Group_unSubscribe.php' ;
 },'post');
 
-Route::add('/API/Groupe_membres',function()
+Route::add('/API/Show-MembresGroupe',function()
 {
     global  $baseAPI ;
     require $baseAPI.'/Group_showMembers.php' ;
 },'post');
+
+Route::add('/API/Show-CreateurGroupe',function()
+{
+    global  $baseAPI ;
+    require $baseAPI.'/Group_showCreator.php' ;
+},'post');
+
+
+
+
+
 
 
 // Formation
