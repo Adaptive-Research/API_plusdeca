@@ -47,8 +47,7 @@ if ( isset($_POST['Submit']) )
         $idGroupe = "" ;
         if ($_POST['idgroupe'] != "")
         $idGroupe = str_replace("'","''",$_POST['idgroupe']) ;
-        
-        // $sql1 = "select gu.id, gu.idgroupe, gu.idutilisateur, g.idutilisateur as idcreator from groupe_utilisateur gu left join groupes g on g.id = gu.idgroupe where gu.idgroupe = ". $idGroupe ." and gu.idutilisateur = " . $idUser. "";
+
         $sql1 = "select a.* from groupe_utilisateur a where a.idgroupe = ". $idGroupe ." and a.idutilisateur = " . $idUser. "";
         
         if (isset($_POST['debug']))
