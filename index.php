@@ -170,6 +170,14 @@ Route::add('/API/Show-CreateurGroupe',function()
 
 
 
+Route::add('/API/Show-UserNotifs',function()
+{
+    global  $baseAPI ;
+    require $baseAPI.'/Notification_showall.php' ;
+},'post');
+
+
+
 
 
 

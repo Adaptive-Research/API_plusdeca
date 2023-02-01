@@ -48,6 +48,7 @@ if ( isset($_POST['Submit']) )
         if ($_POST['idgroupe'] != "")
         $idGroupe = str_replace("'","''",$_POST['idgroupe']) ;
         
+        // $sql1 = "select gu.id, gu.idgroupe, gu.idutilisateur, g.idutilisateur as idcreator from groupe_utilisateur gu left join groupes g on g.id = gu.idgroupe where gu.idgroupe = ". $idGroupe ." and gu.idutilisateur = " . $idUser. "";
         $sql1 = "select a.* from groupe_utilisateur a where a.idgroupe = ". $idGroupe ." and a.idutilisateur = " . $idUser. "";
         
         if (isset($_POST['debug']))
@@ -58,18 +59,39 @@ if ( isset($_POST['Submit']) )
         
         if($num_rows1 == 0) {
 
-          $sql2 = "insert into groupe_utilisateur( idgroupe, idutilisateur) values('".$idGroupe."','" . $idUser."')" ;
-  
-          if (isset($_POST['debug']))
-            echo $sql2."\n" ;
-  
-          $result = pg_query($conn, $sql2);
-          if($result !== false) {
-              echo "OK" ;
-          }
-          else {
-            echo "ERROR: Group submission don't done" ;
-          }
+          
+          $sql3 = "select g.id, g.nom as gnom, g.idutilisateur as idutilisateur, gu.idgroupe, gu.idutilisateur, ui.nom as nom, ui.prenom as prenom from groupes g 
+                    left join groupe_utilisateur gu on gu.idgroupe = g.id
+                    left join utilisateur_infos ui on ui.iduser = gu.idutilisateur
+                    where g.id = ".$idGroupe." ";
+
+          $arr = [] ;
+          $result3 = pg_query($conn, $sql3);
+          $num_rows3 = pg_num_rows($result3);
+          if ( $num_rows3 > 0 )
+          {
+              while($row = pg_fetch_assoc($result3))
+              {
+                
+                $content = "".$row['prenom']." ".$row['nom']." a rejoint votre groupe ".$row['gnom']."";
+                
+                $sql4 = "insert into notifications( idutilisateur, notification_content, idtype_notification) values('".$row['idutilisateur']."','".$content."', 1)" ;
+                $result4 = pg_query($conn, $sql4);
+                
+                $sql2 = "insert into groupe_utilisateur( idgroupe, idutilisateur) values('".$idGroupe."','" . $idUser."')" ;
+                $result2 = pg_query($conn, $sql2);
+                if (isset($_POST['debug']))
+                  echo $sql2."\n" ;
+        
+                if($result2 !== false) {
+                    echo "OK" ;
+                }
+                else {
+                  echo "ERROR: Group submission don't done" ;
+                }
+              }
+              echo json_encode($arr) ;
+            }
         } else {
           echo "ERROR: You're already member of this group" ;
         }
