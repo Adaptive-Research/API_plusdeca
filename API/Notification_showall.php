@@ -59,7 +59,7 @@ if ( isset($_POST['Submit']) )
       $num_rows = pg_num_rows($result);
       if ( $num_rows > 0 )
       {
-        $sql = "select * from notifications where idutilisateur = ".$idUser." and isread = 1 order by id desc" ;
+        $sql = "select * from notifications where idutilisateur = ".$idUser." order by date_save desc" ;
 
         if (isset($_POST['debug']))
         echo $sql."\n" ;

@@ -66,7 +66,7 @@ if ( isset($_POST['Submit']) )
       {
         $sql = "select g.*, temp.nombre, temp2.ismember  from groupes g 
         left join ( select idgroupe, count(*) as nombre from groupe_utilisateur  group by idgroupe )  temp on g.id = temp.idgroupe
-        left join ( select idgroupe, id as IsMember from groupe_utilisateur where idutilisateur = 1  ) temp2 on g.id = temp2.idgroupe
+        left join ( select idgroupe, id as IsMember from groupe_utilisateur where idutilisateur = ".$idUser."  ) temp2 on g.id = temp2.idgroupe
         where g.iscurrent = 1 
         order by g.id desc " ;
 

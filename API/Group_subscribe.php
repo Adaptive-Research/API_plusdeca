@@ -47,52 +47,76 @@ if ( isset($_POST['Submit']) )
         $idGroupe = "" ;
         if ($_POST['idgroupe'] != "")
         $idGroupe = str_replace("'","''",$_POST['idgroupe']) ;
-
-        $sql1 = "select a.* from groupe_utilisateur a where a.idgroupe = ". $idGroupe ." and a.idutilisateur = " . $idUser. "";
         
+        $sql1 = "select * from groupes where id = ".$idGroupe ;
         if (isset($_POST['debug']))
           echo $sql1."\n" ;
 
-        $result1 = pg_query($conn, $sql1);
-        $num_rows1 = pg_num_rows($result1);
-        
-        if($num_rows1 == 0) {
-
-          
-          $sql3 = "select g.id, g.nom as gnom, g.idutilisateur as idutilisateur, gu.idgroupe, gu.idutilisateur, ui.nom as nom, ui.prenom as prenom from groupes g 
-                    left join groupe_utilisateur gu on gu.idgroupe = g.id
-                    left join utilisateur_infos ui on ui.iduser = gu.idutilisateur
-                    where g.id = ".$idGroupe." ";
-
-          $arr = [] ;
-          $result3 = pg_query($conn, $sql3);
-          $num_rows3 = pg_num_rows($result3);
-          if ( $num_rows3 > 0 )
-          {
-              while($row = pg_fetch_assoc($result3))
+          $result1 = pg_query($conn, $sql1);
+          $num_rows1 = pg_num_rows($result1);        
+          if($num_rows1 > 0) {
+            $row1 = pg_fetch_assoc($result1)  ;
+            $NomGroupe = $row1['nom'] ;
+            $idCreator = $row1['idutilisateur'] ;
+            
+            $sql2 = "select * from groupe_utilisateur where idgroupe = ". $idGroupe ." and idutilisateur = ".$idUser ;
+            if (isset($_POST['debug']))
+            echo $sql2."\n" ;
+            
+            $result2 = pg_query($conn, $sql2);
+            $num_rows2 = pg_num_rows($result2);
+            if ( $num_rows2 <= 0 )
+            {
+              $sql3 = "select  * from utilisateur_infos ui where  ui.iduser = ".$idUser ;
+              if (isset($_POST['debug']))
+                echo $sql3."\n" ;
+              
+              $result3 = pg_query($conn, $sql3);
+              $num_rows3 = pg_num_rows($result3);
+              if ( $num_rows3 > 0 )
               {
-                
-                $content = "".$row['prenom']." ".$row['nom']." a rejoint votre groupe ".$row['gnom']."";
-                
-                $sql4 = "insert into notifications( idutilisateur, notification_content, idtype_notification) values('".$row['idutilisateur']."','".$content."', 1)" ;
-                $result4 = pg_query($conn, $sql4);
-                
-                $sql2 = "insert into groupe_utilisateur( idgroupe, idutilisateur) values('".$idGroupe."','" . $idUser."')" ;
-                $result2 = pg_query($conn, $sql2);
-                if (isset($_POST['debug']))
-                  echo $sql2."\n" ;
-        
-                if($result2 !== false) {
-                    echo "OK" ;
-                }
-                else {
-                  echo "ERROR: Group submission don't done" ;
-                }
+                  while($row = pg_fetch_assoc($result3))
+                  {
+
+                    if($idCreator !== $idUser){
+                      $content = "".$row['prenom']." ".$row['nom']." a rejoint votre groupe ".$NomGroupe."";
+                      
+                      $sql4 = "insert into groupe_utilisateur( idgroupe, idutilisateur) values('".$idGroupe."','" . $idUser."')" ;
+                      $result4 = pg_query($conn, $sql4);
+                      if (isset($_POST['debug']))
+                        echo $sql4."\n" ;
+              
+                      if($result4 !== false) {  
+                        echo "OK Subscription done" ;
+
+                        $sql5 = "insert into notifications( idutilisateur, notification_content, idtype_notification) values('".$idCreator."','".$content."', 1)" ;
+                        $result5 = pg_query($conn, $sql5);
+                        if (isset($_POST['debug']))
+                          echo $sql5."\n" ;
+
+                        if($result5 !== false) {
+                          echo "Notification sent" ;
+                        }else {
+                          echo "ERROR: Notification don't sent" ;
+                        }
+                            
+                      }
+                      else {
+                        echo "ERROR: Group submission don't done" ;
+                      }
+                      
+                    }
+                    else {
+                      echo "ERROR: You can't subscribe to your own group, cause you're the creator" ;
+                    }
+                  }
               }
-              echo json_encode($arr) ;
+            }else {
+              echo "ERROR: You're already member of this group" ;
             }
+          
         } else {
-          echo "ERROR: You're already member of this group" ;
+          echo "ERROR: No Group found" ;
         }
 
       }
