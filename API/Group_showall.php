@@ -17,6 +17,7 @@ class Groupe_API
   public $group_image ;
   public $group_number;
   public $isMember;
+  public $isCreator ;
 }
 
 include $baseAPI.'/RTY;456/config.php';
@@ -88,6 +89,11 @@ if ( isset($_POST['Submit']) )
             else 
               $isMember = false;
 
+            if ($row['idutilisateur'] === $idUser)  
+              $isCreator = true ;
+            else 
+              $isCreator = false ;
+
             $objK->id = $row['id'] ;
             $objK->iscurrent = $row['iscurrent'] ;
             $objK->idutilisateur = $row['idutilisateur'] ;
@@ -99,6 +105,7 @@ if ( isset($_POST['Submit']) )
             $objK->group_image = $row['group_image'] ;
             $objK->group_number = $row['nombre'] ;
             $objK->isMember = $isMember ;
+            $objK->isCreator = $isCreator ;
 
             array_push($arr,$objK) ;
           }
